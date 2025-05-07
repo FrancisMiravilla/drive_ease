@@ -48,6 +48,7 @@ $clients = new Clients();
             <tr>
               <th class="px-6 py-3">Client</th>
               <th class="px-6 py-3">Model Booked</th>
+              <th class="px-6 py-3">Address</th>
               <th class="px-6 py-3">Contact</th>
               <th class="px-6 py-3">Payment Status</th>
               <th class="px-6 py-3">Unit Price</th>
@@ -65,7 +66,9 @@ $clients = new Clients();
                 <td class="px-6 py-4"><?= $model ?></td>
                 <td class="px-6 py-4">
                   <p><?= $address ?></p>
-                  <p><?= $phone_number ?></p>
+                </td>
+                <td class="px-6 py-4">
+                <p><?= $phone ?></p>
                 </td>
                 <td class="px-6 py-4">
                   <form action="/drive-ease/backend/api/update-booking-status.php" method="POST">

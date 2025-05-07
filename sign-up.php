@@ -14,7 +14,7 @@
     <?php require_once __DIR__ . "/includes/navbar.php" ?>
 
     <div class="flex h-screen w-full items-center justify-center">
-      <form action="./backend/api/signup.php" method="POST" class="h-fit max-w-sm w-full rounded-lg p-4">
+      <form action="./backend/api/signup.php" method="POST" class="h-fit max-w-sm w-full rounded-lg p-4" onsubmit="return validateForm()">
         <h1 class="font-medium text-center text-3xl mb-2"><span class="text-orange-600 font-bold">Drive</span>Ease
         </h1>
         <p class="text-zinc-500 text-center">Enter your login details to continue</p>
@@ -31,9 +31,10 @@
               class="h-9 w-full py-1.5 px-4 border rounded-lg bg-zinc-100">
           </div>
           <div class="grid gap-1 5">
-            <label for="model" class="text-sm">Confirm Password</label>
-            <input type="password" name="password" id="password"
+            <label for="confirm_password" class="text-sm">Confirm Password</label>
+            <input type="password" name="confirm_password" id="confirm_password"
               class="h-9 w-full py-1.5 px-4 border rounded-lg bg-zinc-100">
+              <span id="password_error" class="text-red-500 text-sm hidden">Passwords do not match!</span>
           </div>
           <button class="py-2.5 px-8 w-full bg-orange-600 text-white rounded-full text-sm w-fit cursor-pointer">
             Create account
@@ -54,6 +55,20 @@
     </div>
 
   </main>
+  <script>
+function validateForm() {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm_password').value;
+    const errorElement = document.getElementById('password_error');
+
+    if (password !== confirmPassword) {
+        errorElement.classList.remove('hidden');
+        return false;
+    }
+    errorElement.classList.add('hidden');
+    return true;
+}
+</script>
 </body>
 
 </html>

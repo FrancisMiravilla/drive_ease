@@ -16,56 +16,56 @@ class Clients extends Database
   }
 
   public function createClient($data)
-  {
+{
     try {
-      if ($data["payment_method"] === "INSTALLMENT") {
-        $query = "INSERT INTO bookings 
-          (user_id, car_id, name, phone, address, city, payment_method, downpayment, monthly_payment, installment_months) 
-          VALUES 
-          (:user_id, :car_id, :name, :phone, :address, :city, :payment_method, :downpayment, :monthly_payment, :installment_months)";
+        if ($data["payment_method"] === "INSTALLMENT") {
+            $query = "INSERT INTO bookings 
+                (user_id, car_id, name, phone, address, city, payment_method, payment_status, downpayment, monthly_payment, installment_months) 
+                VALUES 
+                (:user_id, :car_id, :name, :phone, :address, :city, :payment_method, :payment_status, :downpayment, :monthly_payment, :installment_months)";
 
-        $stmt = $this->conn->prepare($query);
+            $stmt = $this->conn->prepare($query);
 
-        $stmt->execute([
-          ':user_id' => $data['user_id'],
-          ':car_id' => $data['car_id'],
-          ':name' => $data['name'],
-          ':phone' => $data['phone'],
-          ':address' => $data['address'],
-          ':city' => $data['city'],
-          ':payment_method' => $data['payment_method'],
-          ':downpayment' => $data['downpayment'],
-          ':monthly_payment' => $data['monthly_payment'],
-          ':installment_months' => $data['installment_months'],
-        ]);
-      } else {
-        // CASH booking (no monthly payment, downpayment, or months)
-        $query = "INSERT INTO bookings 
-          (user_id, car_id, name, phone, address, city, payment_method) 
-          VALUES 
-          (:user_id, :car_id, :name, :phone, :address, :city, :payment_method)";
+            $stmt->execute([
+                ':user_id' => $data['user_id'],
+                ':car_id' => $data['car_id'],
+                ':name' => $data['name'],
+                ':phone' => $data['phone'],
+                ':address' => $data['address'],
+                ':city' => $data['city'],
+                ':payment_method' => $data['payment_method'],
+                ':payment_status' => 'Pending',
+                ':downpayment' => $data['downpayment'],
+                ':monthly_payment' => $data['monthly_payment'],
+                ':installment_months' => $data['installment_months']
+            ]);
+        } else {
+            // CASH booking
+            $query = "INSERT INTO bookings 
+                (user_id, car_id, name, phone, address, city, payment_method, payment_status) 
+                VALUES 
+                (:user_id, :car_id, :name, :phone, :address, :city, :payment_method, :payment_status)";
 
-        $stmt = $this->conn->prepare($query);
+            $stmt = $this->conn->prepare($query);
 
-        $stmt->execute([
-          ':user_id' => $data['user_id'],
-          ':car_id' => $data['car_id'],
-          ':name' => $data['name'],
-          ':phone' => $data['phone'],
-          ':address' => $data['address'],
-          ':city' => $data['city'],
-          ':payment_method' => $data['payment_method'],
-        ]);
-      }
+            $stmt->execute([
+                ':user_id' => $data['user_id'],
+                ':car_id' => $data['car_id'],
+                ':name' => $data['name'],
+                ':phone' => $data['phone'],
+                ':address' => $data['address'],
+                ':city' => $data['city'],
+                ':payment_method' => $data['payment_method'],
+                ':payment_status' => 'Complete'
+            ]);
+        }
 
-      return true;
-
+        return true;
     } catch (PDOException $e) {
-      error_log("Booking Insert Error: " . $e->getMessage());
-      var_dump($e->getMessage());
-      return false;
+        error_log("Booking Insert Error: " . $e->getMessage());
+        return false;
     }
-  }
+}
 
   public function updatePaymentStatus($booking_id, $new_status)
   {

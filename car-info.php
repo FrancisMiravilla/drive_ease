@@ -98,19 +98,19 @@ $downpayment = $price * 0.20;
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
               <label class="text-sm block mb-1">Name</label>
-              <input type="text" name="name" class="w-full h-9 rounded-lg border px-3 bg-zinc-100" />
+              <input type="text" name="name" class="w-full h-9 rounded-lg border px-3 bg-zinc-100" required/>
             </div>
             <div>
               <label class="text-sm block mb-1">Phone Number</label>
-              <input type="text" name="phone" class="w-full h-9 rounded-lg border px-3 bg-zinc-100" />
+              <input type="text" name="phone" class="w-full h-9 rounded-lg border px-3 bg-zinc-100" required/>
             </div>
             <div>
               <label class="text-sm block mb-1">Address Line</label>
-              <input type="text" name="address" class="w-full h-9 rounded-lg border px-3 bg-zinc-100" />
+              <input type="text" name="address" class="w-full h-9 rounded-lg border px-3 bg-zinc-100" required/>
             </div>
             <div>
               <label class="text-sm block mb-1">City</label>
-              <input type="text" name="city" class="w-full h-9 rounded-lg border px-3 bg-zinc-100" />
+              <input type="text" name="city" class="w-full h-9 rounded-lg border px-3 bg-zinc-100" required/>
             </div>
           </div>
 
